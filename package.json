@@ -1,0 +1,53 @@
+{
+  "name": "sprite-tool",
+  "version": "0.0.1",
+  "description": "sprite utility that merges images and provides coordinates",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=testing node_modules/.bin/nyc --reporter lcov --reporter text --report-dir test/coverage --require babel-core/register node_modules/.bin/mocha test/*.test.js && rm -rf .nyc_output",
+    "coverage": "cat test/coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
+    "dev": "rm -rf lib && node node_modules/babel-cli/bin/babel src -d lib -D -w"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.11.4",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-runtime": "^6.20.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.12",
+    "cross-env": "^2.0.0",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "mocha": "^2.3.3",
+    "nyc": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cupools/sprite-tool.git"
+  },
+  "keywords": [
+    "font",
+    "minify",
+    "css"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "author": "liyh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cupools/sprite-tool/issues"
+  },
+  "homepage": "https://github.com/cupools/sprite-tool#readme",
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "checkin": "0.0.1",
+    "images": "^3.0.0",
+    "layout": "^2.2.0",
+    "lodash.sortby": "^4.7.0"
+  }
+}

@@ -16,6 +16,7 @@ describe('index', () => {
     }
 
     const result = sprite(options, buffers)
+
     result.should.have.property('width', 932)
     result.should.have.property('height', 522)
   })

@@ -14,7 +14,7 @@ Images.setLimit(INFINITE, INFINITE)
  * @param  {Array} buffers   buffer of images
  * @return {Object}         coordinates & size
  */
-export default function process(opt, buffers) {
+export default function process(opt, buffers, metas = []) {
   const options = checkin(opt, lint)
   const fromCache = cache.get(options, buffers)
   if (fromCache) {
@@ -22,22 +22,26 @@ export default function process(opt, buffers) {
   }
 
   const { padding, algorithm } = options
-  const layer = layout(algorithm)
-
   const base64 = buffers.map(buffer => buffer.toString('base64'))
-  buffers.forEach((buffer, index) => {
-    const parent = base64.slice(0, index).indexOf(base64[index])
-    const image = Images(buffer)
-    const size = image.size()
+  const layer = buffers.reduce(
+    (ret, buffer, index) => {
+      const parent = base64.slice(0, index).indexOf(base64[index])
+      const image = Images(buffer)
+      const size = image.size()
 
-    layer.addItem({
-      parent,
-      index,
-      image,
-      width: parent === -1 ? size.width + padding : 0,
-      height: parent === -1 ? size.height + padding : 0
-    })
-  })
+      ret.addItem({
+        parent,
+        index,
+        image,
+        width: parent === -1 ? size.width + padding : 0,
+        height: parent === -1 ? size.height + padding : 0,
+        meta: metas[index] || null
+      })
+
+      return ret
+    },
+    layout(algorithm)
+  )
 
 
   const result = layer.export()
@@ -45,7 +49,7 @@ export default function process(opt, buffers) {
   const width = result.width - padding
   const height = result.height - padding
   const coordinates = result.items.map(item => {
-    const { parent } = item
+    const { parent, meta } = item
     const real = parent === -1 ? item : result.items[parent]
     const { x, y } = real
 
@@ -53,7 +57,8 @@ export default function process(opt, buffers) {
       x,
       y,
       width: real.width - padding,
-      height: real.height - padding
+      height: real.height - padding,
+      meta
     }
   })
 

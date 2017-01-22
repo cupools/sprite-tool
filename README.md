@@ -6,10 +6,10 @@ sprite utility that merges images and provides coordinates.
 
 ## Todo
 
--[ ] support jpeg
+- [ ] supports jpeg
 
 
--[ ] test coverage
+- [ ] test coverage
 
 ## Getting Started
 

@@ -2,6 +2,15 @@
 
 sprite utility that merges images and provides coordinates.
 
+
+
+## Todo
+
+-[ ] support jpeg
+
+
+-[ ] test coverage
+
 ## Getting Started
 
 ```bash
@@ -20,9 +29,24 @@ const buffers = [
   fs.readFileSync('bar.png')
 ]
 
-const result = sprite(option, buffers)
-// => { buffer, width, height, coordinate }
+const result = sprite(option, buffers, meta)
+// => { buffer, width, height, coordinates }
 ```
+
+## Parameters
+
+### options
+
+- padding: Padding between images. Default to 0.
+- algorithm: Layout algorithm of sprite. Default to 'binary-tree'.
+
+### buffers
+
+An array of buffers that will be merge into one sprite image.
+
+### meta
+
+An optional array of metas that reference to buffers.
 
 ## Test
 
